@@ -52,10 +52,17 @@ module.exports.datastores = {
     // url: 'mysql://user:password@host:port/database',
 
     // LOCAL
-    adapter: "sails-mongo",
-    port: "27017",
-    host: "localhost",
-    database: "Book",
+    // adapter: "sails-mongo",
+    // port: "27017",
+    // host: "localhost",
+    // database: "Book",
+
+    adapter: 'sails-mongo', 
+    url:'mongodb+srv://Naveen:g21zfZmx4vwbCFYY@cluster0.gf6e4.mongodb.net/myFirstDatabase?retryWrites=true&w=majority',
+    ssl: true,
+    replicaSet: 'atlas-4lpigz-shard-0',
+    authSource: 'admin',
+    
 
   },
 
