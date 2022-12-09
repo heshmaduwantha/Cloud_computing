@@ -1,0 +1,80 @@
+<div id="bookitem" v-cloak>
+
+  <div class="container">
+    <div class="row">
+      <h2 class="col-md-8 mb-5">{{formData.id==0?'Create a New Book' : 'Edit Book Details'}}</h2>
+      <div class="col-md-4">
+
+        <a href="/booklist" class="btn btn-dark text-white px-4 ml-1" style="float: right;">Back</a>
+
+      </div>
+    </div>
+
+    <div ref="message" class="alert alert-success alert-dismissible fade show" role="alert" v-if='saved'>
+      <strong>Saved</strong> Successfully.
+      <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+        <span aria-hidden="true">&times;</span>
+      </button>
+    </div>
+
+    <ajax-form :action="saveAction" :syncing.sync="syncing" :cloud-error.sync="cloudError" @submitted="submittedForm($event)" :handle-parsing="handleParsingForm">
+    
+      <div class="row">
+
+      <div class="col-md-4">
+      <label for="visibility">Visibility</label><br>  
+      </div>
+
+      <div class="col-md-8">
+      <select class="edit-field form-control" id="visibility" name="visibility" :class="[formErrors.visibility ? 'is-invalid' : '']" v-model.trim="formData.visibility">
+      <option value="0">Un-publish</option>
+      <option value="1">Publish</option>
+      </select>
+      <div class="invalid-feedback" v-if="formErrors.visibility">Please select type.</div><br>
+      </div> 
+
+
+      <div class="col-md-4">
+      <label for="name">Author *</label><br>
+      </div>
+
+      <div class="col-md-8">
+      <input type="text" id="name" class="form-control" :class="[formErrors.name ? 'is-invalid' : '']" v-model.trim="formData.name" placeholder="">
+      <div class="invalid-feedback" v-if="formErrors.name">Please fill above to submit.</div><br>
+      </div>
+
+      <div class="col-md-4">
+        <label for="title">Title *</label><br>
+        </div>
+  
+        <div class="col-md-8">
+        <input type="text" id="title" class="form-control" :class="[formErrors.title ? 'is-invalid' : '']" v-model.trim="formData.title" placeholder="">
+        <div class="invalid-feedback" v-if="formErrors.title">Please fill above to submit.</div><br>
+        </div>
+
+        <div class="col-md-4">
+          <label for="cost">Cost *</label><br>
+          </div>
+    
+          <div class="col-md-8">
+          <input type="text" id="cost" class="form-control" :class="[formErrors.cost ? 'is-invalid' : '']" v-model.trim="formData.cost" placeholder="">
+          <div class="invalid-feedback" v-if="formErrors.cost">Please fill above to submit.</div><br>
+          </div>
+  
+
+      </div>      
+      <p class="text-danger" v-if="cloudError"><small>An error occured while processing your request. Please check your information and try again, or <a href="/contact">contact support</a> if the error persists.</small></p>
+      
+      <div class="pull-right pl-5">
+
+        <a :href="listView"><input type="button" value="Cancel" class="btn btn-danger"></a>&nbsp;
+        <ajax-button class="btn btn-success" :syncing="syncing" @click="savedAndClose()">Save & Close</ajax-button>&nbsp;
+        <ajax-button class="btn btn-success" :syncing="syncing">Save</ajax-button>&nbsp;<br><br>
+
+      </div>
+    </ajax-form>
+    
+  </div>
+
+</div>
+<%- /* Expose server-rendered data as window.SAILS_LOCALS :: */ exposeLocalsToBrowser() %>
